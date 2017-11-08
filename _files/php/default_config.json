@@ -1,0 +1,8 @@
+{
+  "profile_file": "1. Profiles.json",
+  "template_file": "2. Template.html",
+  "wrapper_file": "3. Wrapper.html",
+  "output_file": "4. Output.html",
+  "template_profile_prefix": "PROFILE__",
+  "profile_separate": "\n"
+}

@@ -14,7 +14,7 @@ call _files/input_project_exists.cmd
 echo.
 echo "%Project%" is filling...
 
-php _files/fill.php %Project%
+php _files/php/fill.php %Project%
 
 
 :COMPLETE
