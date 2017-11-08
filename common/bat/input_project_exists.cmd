@@ -2,7 +2,7 @@
 
 SET Project=Sample
 
-call _files/last_project.cmd
+call common/bat/last_project.cmd
 
 SET /P Project="Project name: [%Project%] "
 
@@ -16,4 +16,4 @@ IF NOT [%Project%] == [] (
     )
 )
 
-echo SET Project=%Project%> "_files/last_project.cmd"
+echo SET Project=%Project%> "common/bat/last_project.cmd"

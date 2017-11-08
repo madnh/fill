@@ -1,4 +1,4 @@
-call _files/base.cmd
+call common/bat/base.cmd
 
 echo.
 echo *----------------=====-----------------*
@@ -7,7 +7,7 @@ echo *----------------=====-----------------*
 echo.
 
 :ASK_PROJECT
-call _files/input_project_exists.cmd
+call common/bat/input_project_exists.cmd
 
 
 :ACTION
@@ -30,10 +30,10 @@ php "%EXTRACTOR_FILE_PATH%" %Project%
 
 
 :COMPLETE
-call _files/messages/complete.cmd
+call common/bat/messages/complete.cmd
 
 
 :BYE
-call _files/messages/bye.cmd
+call common/bat/messages/bye.cmd
 
 pause

@@ -1,7 +1,7 @@
 <?php
 require_once 'bootstrap.php';
 
-$config = json_decode(file_get_contents(PHP_DIR.DS.'default_config.json'), true);
+$config = json_decode(file_get_contents(COMMON_DIR.DS.'default_config.json'), true);
 
 $project = 'Sample';
 if(isset($argv[1])){
