@@ -1,38 +1,27 @@
-call "_files/base.cmd"
+call _files/base.cmd
 
-echo Fill data to template
-echo ------
+echo.
+echo *----------------=====-----------------*
+echo           Fill Data To Template
+echo *----------------=====-----------------*
 echo.
 
-:START
+:ASK_PROJECT
+call _files/last_project.cmd
+call _files/input_project_exists.cmd
 
-SET Project=Sample
-SET /P Project="Ten project: [%Project%] "
-
-IF NOT [%Project%] == [] (
-    IF NOT EXIST %Project% (
-        echo Project "%Project%" is not exists.
-        echo.
-        GOTO START
-    )
-)
-
+:ACTION
 echo.
 echo "%Project%" is filling...
 
-php "_files/fill.php" %Project%
+php _files/fill.php %Project%
 
 
-echo.
-echo ---
-echo Complete.
-echo ---
-echo.
+:COMPLETE
+call _files/messages/complete.cmd
+
 
 :BYE
-
-echo.
-echo Bye~
-echo.
+call _files/messages/bye.cmd
 
 pause
