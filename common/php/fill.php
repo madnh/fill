@@ -3,33 +3,36 @@ require 'bootstrap.php';
 
 $config = require 'config.php';
 
-file_put_contents(PROJECT_DIR.DS.$config['output_file'], '');
+file_put_contents(PROJECT_DIR . DS . $config['file']['output'], '');
 
-$profiles = json_decode(file_get_contents($project.DS.$config['profile_file']), true);
-$templateItem = file_get_contents($project.DS.$config['template_file']);
-$template = [];
+$filler = new Filler($config);
+
+// Get filled content of profiles
+
+$filler->setFiller($config['filler']['profile']);
+$filler->setTemplateFile(PROJECT_DIR . DS . $config['file']['template']);
+
+$filledProfiles = [];
+$profiles = json_decode(file_get_contents(PROJECT_DIR . DS . $config['file']['profile']), true);
 
 foreach ($profiles as $index => $profile) {
-    $tmpTemplate = $templateItem;
     $data = $profile;
     $data['_index_base_1'] = $index + 1;
     $data['_index'] = $index;
 
-    foreach ($data as $name => $value) {
-        $search = $config['template_profile_prefix'] . strtoupper($name);
-
-        $tmpTemplate = str_replace($search, $value, $tmpTemplate);
-    }
-
-
-    $template[] = $tmpTemplate;
+    $filledProfiles[] = $filler->fill($data);
 }
 
-$output = implode($config['profile_separate'], $template);
+// Fill profiles content to wrapper template
 
-$wrapperContent = file_get_contents(PROJECT_DIR.DS.$config['wrapper_file']);
-if(!empty($wrapperContent)){
-    $output = str_replace('CONTENT_HERE', $output, $wrapperContent);
-}
+$filler->setFiller($config['filler']['wrapper']);
+$filler->setTemplateFile(PROJECT_DIR . DS . $config['file']['wrapper']);
 
-file_put_contents(PROJECT_DIR.DS.$config['output_file'], $output);
+$data = [
+    'profiles' => $profiles,
+    'filled_profiles' => $filledProfiles,
+    'content' => implode($config['profile_separate'], $filledProfiles)
+];
+$output = $filler->fill($data);
+
+file_put_contents(PROJECT_DIR . DS . $config['file']['output'], $output);

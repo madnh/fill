@@ -1,8 +1,15 @@
 {
-  "profile_file": "1. Profiles.json",
-  "template_file": "2. Template.html",
-  "wrapper_file": "3. Wrapper.html",
-  "output_file": "4. Output.html",
-  "template_profile_prefix": "PROFILE__",
-  "profile_separate": "\n"
+  "file": {
+    "profile": "1. Profiles.json",
+    "template": "2. Template.html",
+    "wrapper": "3. Wrapper.html",
+    "output": "4. Output.html"
+  },
+  "filler": {
+    "profile": "basic",
+    "wrapper": "basic"
+  },
+  "template_profile_prefix": "_",
+  "profile_separate": "\n",
+  "project": {}
 }
