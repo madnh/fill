@@ -1,4 +1,4 @@
-call common/bat/base.cmd
+call ../common/bat/base.cmd
 
 echo.
 echo *----------------=====-----------------*
@@ -13,6 +13,6 @@ php ../common/php/fill.php
 
 
 :BYE
-call common/bat/messages/bye.cmd
+call ../common/bat/messages/bye.cmd
 
 pause

@@ -1,1 +1,1 @@
-SET Project=Bookmark
+SET Project=Test
