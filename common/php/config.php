@@ -3,12 +3,6 @@ require_once 'bootstrap.php';
 
 $config = json_decode(file_get_contents(COMMON_DIR . DS . 'default_config.json'), true);
 
-foreach ($config['file'] as $fileType => $fileName) {
-    if (!file_exists($fileName)) {
-        sayError(new Exception('File type "' . $fileType . '" not found'));
-    }
-}
-
 if (isset($argv[1])) {
     $project = $argv[1];
     define('PROJECT_NAME', $project);
@@ -28,6 +22,15 @@ if (file_exists($projectConfigFile)) {
     }
 
     $config = array_merge($config, $projectConfig);
+}
+
+
+foreach ($config['file'] as $fileType => $fileName) {
+    $filePath = PROJECT_DIR.DS.$fileName;
+
+    if (!file_exists($filePath)) {
+        sayError(new Exception('File type "' . $fileType . '" not found'));
+    }
 }
 
 return $config;
