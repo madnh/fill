@@ -41,7 +41,7 @@ class CLI
     protected $colorProfiles = [
         'error' => ['red', null],
         'warning' => ['yellow', null],
-        'info' => ['green', null],
+        'info' => ['light_cyan', null],
         'normal' => [null, null],
     ];
 
@@ -50,7 +50,7 @@ class CLI
      */
     public static function getInstance()
     {
-        if(!self::$instance){
+        if (!self::$instance) {
             self::$instance = new self();
         }
 
@@ -151,8 +151,17 @@ class CLI
      */
     public function getSayString($message, $colorProfileName)
     {
+        $useColor = false;
         if (!array_key_exists($colorProfileName, $this->colorProfiles)) {
-            throw new Exception('Color profile "' . $colorProfileName . '" is not exists');
+            $useColor = array_key_exists($colorProfileName, self::$foregroundColors);
+
+            if (!$useColor) {
+                throw new Exception('Color profile "' . $colorProfileName . '" is not exists');
+            }
+        }
+
+        if ($useColor) {
+            return $this->getColoredString($message, $useColor);
         }
 
         $colorProfile = $this->colorProfiles[$colorProfileName];

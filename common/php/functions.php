@@ -32,11 +32,21 @@ function csvToArray($csvFile, array $fields = null)
     return $result;
 }
 
-/**
- * | CLI functions
- * |--------------------------------------------------------------------------
- */
+/*
+| CLI functions
+|--------------------------------------------------------------------------
+*/
 
+/**
+ * @param string $text
+ * @param string $color
+ *
+ * @return string
+ */
+function textColor($text, $color)
+{
+    return CLI::getInstance()->getColoredString($text, $color);
+}
 
 function newLine($lines = 1)
 {
@@ -111,10 +121,10 @@ function symbol($name)
         'heavy_exclamation' => "\xE2\x9D\x97"
     ];
 
-    if(!array_key_exists($name, $symbols)){
+    if (!array_key_exists($name, $symbols)) {
         $heavy_exclamation_symbol = $symbols['heavy_exclamation'];
 
-        return $heavy_exclamation_symbol . $heavy_exclamation_symbol .' SYMBOL-NOT-FOUND'. $heavy_exclamation_symbol . $heavy_exclamation_symbol;
+        return $heavy_exclamation_symbol . $heavy_exclamation_symbol . ' SYMBOL-NOT-FOUND' . $heavy_exclamation_symbol . $heavy_exclamation_symbol;
     }
 
     return $symbols[$name];

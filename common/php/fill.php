@@ -6,7 +6,7 @@ $cli = CLI::getInstance();
 $stepIndex = 1;
 
 newLine();
-sayInfo('Project: '.PROJECT_NAME);
+sayInfo('Project: ' . textColor(PROJECT_NAME, 'yellow'));
 newLine(2);
 
 sayInline($stepIndex++ . '. Clear old output ');
@@ -15,9 +15,10 @@ file_put_contents(PROJECT_DIR . DS . $config['file']['output'], '');
 sayInfo(symbol('check'));
 
 $filler = new Filler($config);
+newLine();
 
 // Get filled content of profiles
-sayInline($stepIndex++ . '. Fill profiles to template ');
+say($stepIndex++ . '. Fill profiles to template ');
 
 $filler->setFiller($config['filler']['profile']);
 $filler->setTemplateFile(PROJECT_DIR . DS . $config['file']['template']);
@@ -30,10 +31,21 @@ foreach ($profiles as $index => $profile) {
     $data['_index_base_1'] = $index + 1;
     $data['_index'] = $index;
 
-    $filledProfiles[] = $filler->fill($data);
+    sayInline("   - Profile " . $index . ' ');
+
+    try {
+        $filledProfiles[] = $filler->fill($data);
+
+        sayInfo(symbol('check'));
+    } catch (Exception $e) {
+        sayError(symbol('heavy_exclamation') . ' ' . $e->getMessage(), false);
+
+        throw $e;
+    }
+
 }
 
-sayInfo(symbol('check'));
+newLine();
 
 // Fill profiles content to wrapper template
 sayInline($stepIndex++ . '. Fill wrapper ');
@@ -53,5 +65,5 @@ file_put_contents(PROJECT_DIR . DS . $config['file']['output'], $output);
 sayInfo(symbol('check'));
 
 newLine(3);
-sayInfo("Complete ". symbol('beer_click'));
+sayInfo("Complete " . symbol('beer_click'));
 newLine(2);
