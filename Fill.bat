@@ -17,10 +17,6 @@ echo "%Project%" is filling...
 php common/php/fill.php %Project%
 
 
-:COMPLETE
-call common/bat/messages/complete.cmd
-
-
 :BYE
 call common/bat/messages/bye.cmd
 
