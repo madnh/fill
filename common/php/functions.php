@@ -118,7 +118,8 @@ function symbol($name)
         'beer_click' => "\xF0\x9F\x8D\xBB",
         'bear_mug' => "\xF0\x9F\x8D\xBA",
         'cross_mark' => "\xE2\x9D\x8C",
-        'heavy_exclamation' => "\xE2\x9D\x97"
+        'heavy_exclamation' => "\xE2\x9D\x97",
+        'smiling' => "\xF0\x9F\x98\x84"
     ];
 
     if (!array_key_exists($name, $symbols)) {

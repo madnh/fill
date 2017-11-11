@@ -25,27 +25,33 @@ $filler->setTemplateFile(PROJECT_DIR . DS . $config['file']['template']);
 
 $filledProfiles = [];
 $profiles = json_decode(file_get_contents(PROJECT_DIR . DS . $config['file']['profile']), true);
+$numbersOfProfiles = count($profiles);
+$checkSymbol = $cli->getSayString(symbol('check'), 'info');
+
+newLine();
 
 foreach ($profiles as $index => $profile) {
     $data = $profile;
-    $data['_index_base_1'] = $index + 1;
+    $indexBase1 = $index + 1;
+    $data['_index_base_1'] = $indexBase1;
     $data['_index'] = $index;
 
-    sayInline("   - Profile " . $index . ' ');
+    sayInline("\r   [" . ($indexBase1 . ' / ' . $numbersOfProfiles) . '] - Profile ' . $indexBase1 . ' ');
 
     try {
         $filledProfiles[] = $filler->fill($data);
 
-        sayInfo(symbol('check'));
+        echo $checkSymbol;
     } catch (Exception $e) {
         sayError(symbol('heavy_exclamation') . ' ' . $e->getMessage(), false);
 
         throw $e;
     }
-
 }
 
-newLine();
+sayInline("\r   [" . ($numbersOfProfiles . ' / ' . $numbersOfProfiles) . '] - Complete ' . $checkSymbol . ' ');
+
+newLine(2);
 
 // Fill profiles content to wrapper template
 sayInline($stepIndex++ . '. Fill wrapper ');
